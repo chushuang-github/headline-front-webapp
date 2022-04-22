@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="aaa">
     <van-cell>
       <!-- 标题区域的插槽 -->
       <template #title>
@@ -23,15 +23,26 @@
             <span>{{ formatTime(item.pubdate) }}</span>
           </div>
           <!-- 反馈按钮 -->
-          <van-icon name="cross" />
+          <van-icon name="cross" @click="show = true" />
         </div>
       </template>
     </van-cell>
+    <!-- 反馈面板 -->
+    <van-action-sheet
+      v-model="show"
+      :actions="actions"
+      :cancel-text="bottomText"
+      get-container="body"
+      @select="onSelect"
+      @cancel="onCancel"
+      @closed="onClosed"
+    />
   </div>
 </template>
 
 <script>
 import { timeAgo } from '../../../utils/date'
+import { firstActions, secondActions } from '../../../api/report'
 export default {
   name: 'ArticleItem',
   props: {
@@ -40,8 +51,42 @@ export default {
       default: () => ({})
     }
   },
+  data () {
+    return {
+      show: false,
+      actions: firstActions,
+      bottomText: '取消'
+    }
+  },
   methods: {
-    formatTime: timeAgo
+    formatTime: timeAgo,
+    // 点击选项触发
+    onSelect (action, index) {
+      if (action.name === '反馈垃圾内容') {
+        this.actions = secondActions
+        this.bottomText = '返回'
+      } else if (action.name === '不感兴趣') {
+        this.$emit('disLikeEV', this.item.art_id)
+        // 关闭面板
+        this.show = false
+      } else {
+        this.$emit('reportEV', this.item.art_id, action.value)
+        this.show = false
+      }
+    },
+    // 点击取消按钮触发
+    onCancel () {
+      if (this.bottomText === '返回') {
+        this.show = true
+        this.actions = firstActions
+        this.bottomText = '取消'
+      }
+    },
+    // 关闭面板触发
+    onClosed () {
+      this.actions = firstActions
+      this.bottomText = '取消'
+    }
   }
 }
 </script>

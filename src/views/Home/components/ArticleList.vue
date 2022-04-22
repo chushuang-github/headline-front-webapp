@@ -16,6 +16,8 @@
           v-for="item in list"
           :key="item.art_id"
           :item="item"
+          @disLikeEV="disLikeFn"
+          @reportEV="reportFn"
         />
       </van-list>
     </van-pull-refresh>
@@ -24,7 +26,8 @@
 
 <script>
 import ArticleItem from './ArticleItem'
-import { getArticleListAPI } from '../../../api'
+import { Notify } from 'vant'
+import { getArticleListAPI, dislikeArticleAPI, articleReportsAPI } from '../../../api'
 export default {
   name: 'ArticleList',
   props: {
@@ -83,6 +86,24 @@ export default {
     async onRefresh () {
       this.timestamp = new Date().getTime()
       this.getArticleListFn()
+    },
+    // 不感兴趣
+    async disLikeFn (artId) {
+      try {
+        await dislikeArticleAPI(artId)
+        Notify({ type: 'success', message: '反馈成功' })
+      } catch (err) {
+        Notify({ type: 'warning', message: '反馈失败-联系程序员' })
+      }
+    },
+    // 反馈垃圾内容
+    async reportFn (artId, type) {
+      try {
+        await articleReportsAPI({ artId, type })
+        Notify({ type: 'success', message: '举报成功' })
+      } catch (err) {
+        Notify({ type: 'warning', message: '举报失败' })
+      }
     }
   }
 }

@@ -47,3 +47,33 @@ export const getArticleListAPI = ({ channel_id, timestamp }) => {
     }
   })
 }
+
+// 文章 - 不感兴趣功能，target是不喜欢的文章id
+export const dislikeArticleAPI = (artId) => {
+  return request({
+    url: '/v1_0/article/dislikes',
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + getToken()
+    },
+    data: {
+      target: artId
+    }
+  })
+}
+
+// 文章 - 反馈垃圾内容
+export const articleReportsAPI = ({ artId, type }) => {
+  return request({
+    url: '/v1_0/article/reports',
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + getToken()
+    },
+    data: {
+      target: artId,
+      type,
+      remark: ''
+    }
+  })
+}

@@ -15,7 +15,8 @@ import {
   Tabs,
   Cell,
   List,
-  PullRefresh
+  PullRefresh,
+  ActionSheet
 } from 'vant'
 
 Vue.use(NavBar)
@@ -30,6 +31,7 @@ Vue.use(Tabs)
 Vue.use(Cell)
 Vue.use(List)
 Vue.use(PullRefresh)
+Vue.use(ActionSheet)
 
 Vue.config.productionTip = false
 
