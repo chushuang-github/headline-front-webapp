@@ -51,6 +51,7 @@ import { loginAPI } from '../../api'
 import { Notify } from 'vant'
 import { setToken } from '../../utils/token'
 export default {
+  name: 'Login',
   data () {
     return {
       user: {
@@ -68,6 +69,7 @@ export default {
         const res = await loginAPI(this.user)
         Notify({ type: 'success', message: '登录成功' })
         setToken(res.data.data.token)
+        this.$router.replace('/layout/home')
       } catch (err) {
         Notify({ type: 'danger', message: '账号或者密码错误' })
       }
