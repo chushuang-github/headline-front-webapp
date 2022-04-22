@@ -1,5 +1,4 @@
 import request from '../utils/request'
-import { getToken } from '../utils/token'
 
 // 登录 - 登录接口
 // axios内部，会把参数对象转成json字符串格式发送给后台，并且会自动添加请求头
@@ -26,10 +25,26 @@ export const getAllChannelsAPI = () => {
 export const getUserChannelsAPI = () => {
   return request({
     url: '/v1_0/user/channels',
-    method: 'GET',
-    headers: {
-      Authorization: 'Bearer ' + getToken()
+    method: 'GET'
+  })
+}
+
+// 更新覆盖频道
+export const updateChannelAPI = ({ channels }) => {
+  return request({
+    url: '/v1_0/user/channels',
+    method: 'PUT',
+    data: {
+      channels
     }
+  })
+}
+
+// 删除频道
+export const deleteChannelAPI = (id) => {
+  return request({
+    url: `/v1_0/user/channels/${id}`,
+    method: 'DELETE'
   })
 }
 
@@ -38,9 +53,6 @@ export const getArticleListAPI = ({ channel_id, timestamp }) => {
   return request({
     url: '/v1_0/articles',
     method: 'GET',
-    headers: {
-      Authorization: 'Bearer ' + getToken()
-    },
     params: {
       channel_id,
       timestamp
@@ -53,9 +65,6 @@ export const dislikeArticleAPI = (artId) => {
   return request({
     url: '/v1_0/article/dislikes',
     method: 'POST',
-    headers: {
-      Authorization: 'Bearer ' + getToken()
-    },
     data: {
       target: artId
     }
@@ -63,13 +72,10 @@ export const dislikeArticleAPI = (artId) => {
 }
 
 // 文章 - 反馈垃圾内容
-export const articleReportsAPI = ({ artId, type }) => {
+export const articleReportsAPI = ({ artId, type, remark }) => {
   return request({
     url: '/v1_0/article/reports',
     method: 'POST',
-    headers: {
-      Authorization: 'Bearer ' + getToken()
-    },
     data: {
       target: artId,
       type,

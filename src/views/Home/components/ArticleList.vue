@@ -93,7 +93,7 @@ export default {
         await dislikeArticleAPI(artId)
         Notify({ type: 'success', message: '反馈成功' })
       } catch (err) {
-        Notify({ type: 'warning', message: '反馈失败-联系程序员' })
+        console.log('失败了')
       }
     },
     // 反馈垃圾内容
@@ -102,7 +102,7 @@ export default {
         await articleReportsAPI({ artId, type })
         Notify({ type: 'success', message: '举报成功' })
       } catch (err) {
-        Notify({ type: 'warning', message: '举报失败' })
+        console.log('失败了')
       }
     }
   }
