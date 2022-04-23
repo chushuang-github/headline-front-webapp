@@ -1,5 +1,5 @@
 <template>
-  <div class="aaa">
+  <div>
     <van-cell>
       <!-- 标题区域的插槽 -->
       <template #title>
@@ -23,7 +23,7 @@
             <span>{{ formatTime(item.pubdate) }}</span>
           </div>
           <!-- 反馈按钮 -->
-          <van-icon name="cross" @click="show = true" />
+          <van-icon name="cross" @click.stop="show = true" v-if="isShow" />
         </div>
       </template>
     </van-cell>
@@ -41,14 +41,18 @@
 </template>
 
 <script>
-import { timeAgo } from '../../../utils/date'
-import { firstActions, secondActions } from '../../../api/report'
+import { timeAgo } from '../utils/date'
+import { firstActions, secondActions } from '../api/report'
 export default {
   name: 'ArticleItem',
   props: {
     item: {
       type: Object,
       default: () => ({})
+    },
+    isShow: {
+      type: Boolean,
+      default: true
     }
   },
   data () {

@@ -83,3 +83,70 @@ export const articleReportsAPI = ({ artId, type, remark }) => {
     }
   })
 }
+
+// 搜索 - 联想菜单
+export const suggestListAPI = (q) => {
+  return request({
+    url: '/v1_0/suggestion',
+    params: {
+      q
+    }
+  })
+}
+
+// 搜索结果列表
+export const searchListAPI = ({ page = 1, per_page = 10, q }) => {
+  return request({
+    url: '/v1_0/search',
+    params: {
+      page,
+      per_page,
+      q
+    }
+  })
+}
+
+// 根据文章id获取文章详情
+export const getArticleDetailAPI = (art_id) => {
+  return request({
+    url: `/v1_0/articles/${art_id}`
+  })
+}
+
+// 关注作者
+export const followAuthorAPI = (userId) => {
+  return request({
+    url: '/v1_0/user/followings',
+    method: 'POST',
+    data: {
+      target: userId
+    }
+  })
+}
+
+// 取消关注作者
+export const unFollowAuthorAPI = (userId) => {
+  return request({
+    url: `/v1_0/user/followings/${userId}`,
+    method: 'DELETE'
+  })
+}
+
+// 点赞
+export const likeArtAPI = (artId) => {
+  return request({
+    url: '/v1_0/article/likings',
+    method: 'POST',
+    data: {
+      target: artId
+    }
+  })
+}
+
+// 取消点赞
+export const dislikeArtAPI = (artId) => {
+  return request({
+    url: `/v1_0/article/likings/${artId}`,
+    method: 'DELETE'
+  })
+}

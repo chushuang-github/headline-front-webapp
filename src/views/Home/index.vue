@@ -8,7 +8,7 @@
         <template #right>
           <!-- postcss只能将style标签里面px转为rem，这里面的size大小自己写成0.48rem才能适配 -->
           <!-- 18 / 37.5 = 0.48 -->
-          <van-icon name="search" color="#ffffff" size="0.48rem" />
+          <van-icon name="search" color="#ffffff" size="0.48rem" @click="$router.push('/search')" />
         </template>
       </van-nav-bar>
     </div>

@@ -20,7 +20,9 @@ import {
   Popup,
   Col,
   Row,
-  Badge
+  Badge,
+  Search,
+  Divider
 } from 'vant'
 
 Vue.use(NavBar)
@@ -40,8 +42,23 @@ Vue.use(Popup)
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Badge)
+Vue.use(Search)
+Vue.use(Divider)
 
 Vue.config.productionTip = false
+
+// vue2.0的自定义指令
+const directiveObj = {
+  install (Vue) {
+    Vue.directive('focus', {
+      inserted (el) {
+        const input = el.querySelector('input')
+        input.focus()
+      }
+    })
+  }
+}
+Vue.use(directiveObj)
 
 new Vue({
   router,

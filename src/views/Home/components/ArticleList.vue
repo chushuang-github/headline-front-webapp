@@ -12,12 +12,14 @@
         offset="50"
         @load="onLoad"
       >
+        <!-- 监听组件的点击事件：@click.native="" -->
         <ArticleItem
           v-for="item in list"
           :key="item.art_id"
           :item="item"
           @disLikeEV="disLikeFn"
           @reportEV="reportFn"
+          @click.native="$router.push(`/article_detail?art_id=${item.art_id}`)"
         />
       </van-list>
     </van-pull-refresh>
@@ -25,7 +27,7 @@
 </template>
 
 <script>
-import ArticleItem from './ArticleItem'
+import ArticleItem from '../../../components/ArticleItem.vue'
 import { Notify } from 'vant'
 import { getArticleListAPI, dislikeArticleAPI, articleReportsAPI } from '../../../api'
 export default {
