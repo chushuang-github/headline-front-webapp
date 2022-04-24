@@ -82,7 +82,11 @@ export default {
     },
     // 底部加载事件方法，底部加载事件，组件会自动把loading改为true
     async onLoad () {
-      this.getArticleListFn()
+      if (this.list.length) {
+        this.getArticleListFn()
+      } else {
+        this.loading = false
+      }
     },
     // 下拉刷新
     async onRefresh () {

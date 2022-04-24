@@ -150,3 +150,55 @@ export const dislikeArtAPI = (artId) => {
     method: 'DELETE'
   })
 }
+
+// 评论列表
+// type: a-对文章的评论；c-对评论的评论
+// source：文章id或者评论id
+// offset：评论偏移个数；limit：评论个数
+export const commentsListAPI = ({ type = 'a', id, offset = null, limit = 10 }) => {
+  // axios只针对params，如果发现键值对，值为null或者undefined，会忽略此参数名和值不携带在url后面
+  return request({
+    url: '/v1_0/comments',
+    params: {
+      type,
+      source: id,
+      offset,
+      limit
+    }
+  })
+}
+
+// 评论小星星点赞
+export const likeCommentAPI = (comId) => {
+  return request({
+    url: '/v1_0/comment/likings',
+    method: 'POST',
+    data: {
+      target: comId
+    }
+  })
+}
+
+// 评论小星星取消点赞
+export const dislikeCommentAPI = (comId) => {
+  return request({
+    url: `/v1_0/comment/likings/${comId}`,
+    method: 'DELETE'
+  })
+}
+
+// 发布评论
+export const publishCommentAPI = ({ id, content, art_id = null }) => {
+  const data = {
+    target: id,
+    content
+  }
+  if (art_id !== null) {
+    data.art_id = art_id
+  }
+  return request({
+    url: '/v1_0/comments',
+    method: 'POST',
+    data
+  })
+}

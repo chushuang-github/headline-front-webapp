@@ -52,8 +52,13 @@ const directiveObj = {
   install (Vue) {
     Vue.directive('focus', {
       inserted (el) {
+        if (el.nodeName === 'TEXTAREA' || el.nodeName === 'INPUT') {
+          return el.focus()
+        }
         const input = el.querySelector('input')
-        input.focus()
+        const textarea = el.querySelector('textarea')
+        input && input.focus()
+        textarea && textarea.focus()
       }
     })
   }

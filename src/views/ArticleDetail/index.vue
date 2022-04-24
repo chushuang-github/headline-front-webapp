@@ -61,14 +61,27 @@
         >点赞</van-button>
       </div>
     </div>
+
+    <!-- 评论路由 -->
+    <CommentList />
   </div>
 </template>
 
 <script>
-import { getArticleDetailAPI, followAuthorAPI, unFollowAuthorAPI, likeArtAPI, dislikeArtAPI } from '../../api'
+import {
+  getArticleDetailAPI,
+  followAuthorAPI,
+  unFollowAuthorAPI,
+  likeArtAPI,
+  dislikeArtAPI
+} from '../../api'
 import { timeAgo } from '../../utils/date'
+import CommentList from './CommentList.vue'
 export default {
   name: 'ArticleDetail',
+  components: {
+    CommentList
+  },
   data () {
     return {
       artDetail: {}

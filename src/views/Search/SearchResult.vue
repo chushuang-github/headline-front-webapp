@@ -59,6 +59,10 @@ export default {
   methods: {
     // 轮动到底部，执行此函数
     async onLoad () {
+      if (!this.articleList.length) {
+        this.loading = false
+        return
+      }
       this.page++
       const res = await searchListAPI({
         page: this.page,
