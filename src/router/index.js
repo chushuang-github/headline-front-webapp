@@ -4,6 +4,7 @@ import Login from '../views/Login'
 import Layout from '../views/Layout'
 import Home from '../views/Home'
 import User from '../views/User'
+import UserEdit from '../views/User/UserEdit.vue'
 import Search from '../views/Search'
 import SearchResult from '../views/Search/SearchResult.vue'
 import ArticleDetail from '../views/ArticleDetail'
@@ -16,6 +17,7 @@ const routes = [
   { path: '/search', component: Search },
   { path: '/search_result/:kw', component: SearchResult },
   { path: '/article_detail', component: ArticleDetail },
+  { path: '/user_edit', component: UserEdit },
   {
     path: '/layout',
     component: Layout,

@@ -22,7 +22,12 @@ import {
   Row,
   Badge,
   Search,
-  Divider
+  Divider,
+  Tag,
+  CellGroup,
+  Image,
+  Dialog,
+  DatetimePicker
 } from 'vant'
 
 Vue.use(NavBar)
@@ -44,6 +49,11 @@ Vue.use(Col)
 Vue.use(Badge)
 Vue.use(Search)
 Vue.use(Divider)
+Vue.use(Tag)
+Vue.use(CellGroup)
+Vue.use(Image)
+Vue.use(Dialog)
+Vue.use(DatetimePicker)
 
 Vue.config.productionTip = false
 
@@ -52,6 +62,15 @@ const directiveObj = {
   install (Vue) {
     Vue.directive('focus', {
       inserted (el) {
+        if (el.nodeName === 'TEXTAREA' || el.nodeName === 'INPUT') {
+          return el.focus()
+        }
+        const input = el.querySelector('input')
+        const textarea = el.querySelector('textarea')
+        input && input.focus()
+        textarea && textarea.focus()
+      },
+      update (el) {
         if (el.nodeName === 'TEXTAREA' || el.nodeName === 'INPUT') {
           return el.focus()
         }

@@ -157,6 +157,7 @@ export const dislikeArtAPI = (artId) => {
 // offset：评论偏移个数；limit：评论个数
 export const commentsListAPI = ({ type = 'a', id, offset = null, limit = 10 }) => {
   // axios只针对params，如果发现键值对，值为null或者undefined，会忽略此参数名和值不携带在url后面
+  // axios对body参数的key+value，如果value值null或者undefined，是不会忽略的，会传递给后台的
   return request({
     url: '/v1_0/comments',
     params: {
@@ -200,5 +201,42 @@ export const publishCommentAPI = ({ id, content, art_id = null }) => {
     url: '/v1_0/comments',
     method: 'POST',
     data
+  })
+}
+
+// 获取用户信息
+export const getUserInfoAPI = () => {
+  return request({
+    url: '/v1_0/user'
+  })
+}
+
+// 获取用户基本信息
+export const getProfileAPI = () => {
+  return request({
+    url: '/v1_0/user/profile'
+  })
+}
+
+// 用户- 更新头像
+// 注意: formData的值必须是一个表单对象
+// '{"a": 10, "b": 20}'  对象格式的JSON字符串
+// new FormData()        表单对象
+// 如果你的请求体内容是表单对象，浏览器会自动携带请求头Content-Type为multipart/form-data
+export const updatePhotoAPI = (formData) => {
+  return request({
+    url: '/v1_0/user/photo',
+    method: 'PATCH',
+    data: formData
+  })
+}
+
+// 修改名称
+// obj：{ name, gender, birthday, intro }
+export const updateProfileAPI = (obj) => {
+  return request({
+    url: '/v1_0/user/profile',
+    method: 'PATCH',
+    data: obj
   })
 }
