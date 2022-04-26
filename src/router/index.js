@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login'
-import Layout from '../views/Layout'
-import Home from '../views/Home'
-import User from '../views/User'
-import UserEdit from '../views/User/UserEdit.vue'
-import Search from '../views/Search'
-import SearchResult from '../views/Search/SearchResult.vue'
-import ArticleDetail from '../views/ArticleDetail'
+
+const Login = () => import('../views/Login')
+const Layout = () => import('../views/Layout')
+const Home = () => import('../views/Home')
+const User = () => import('../views/User')
+const UserEdit = () => import('../views/User/UserEdit.vue')
+const Search = () => import('../views/Search')
+const SearchResult = () => import('../views/Search/SearchResult.vue')
+const ArticleDetail = () => import('../views/ArticleDetail')
+const Chat = () => import('../views/Chat')
 
 Vue.use(VueRouter)
 
@@ -18,6 +20,7 @@ const routes = [
   { path: '/search_result/:kw', component: SearchResult },
   { path: '/article_detail', component: ArticleDetail },
   { path: '/user_edit', component: UserEdit },
+  { path: '/chat', component: Chat },
   {
     path: '/layout',
     component: Layout,
